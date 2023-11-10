@@ -37,7 +37,8 @@ function updateTimer() {
 
   if (timeLeft <= 0) {
     clearInterval(countdownInterval);
-    displayTimeLeft(0);
+    displayTimeLeft(0, 0, 0, 0);
+    datetimePicker._flatpickr._input.disabled = false;
     return;
   }
   const { days, hours, minutes, seconds } = convertMs(timeLeft);
@@ -56,6 +57,7 @@ function startCountdown() {
   targetDate = selectedDate;
   countdownInterval = setInterval(updateTimer, 1000);
   startButton.disabled = true;
+  datetimePicker._flatpickr._input.disabled = true;
 }
 
 function displayTimeLeft(days, hours, minutes, seconds) {

@@ -1,24 +1,26 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
+const delayInput = document.querySelector(`input[name ="delay"]`);
+const stepInput = document.querySelector(`input[name="step"]`);
+const amountInput = document.querySelector(`input[name="amount"]`);
+
 const form = document.querySelector(`.form`);
 form.addEventListener(`submit`, event => {
   event.preventDefault();
-
-  const delayInput = document.querySelector(`input[name ="delay"]`);
-  const stepInput = document.querySelector(`input[name="step"]`);
-  const amountInput = document.querySelector(`input[name="amount"]`);
 
   const delay = parseInt(delayInput.value, 10);
   const step = parseInt(stepInput.value, 10);
   const amount = parseInt(amountInput.value, 10);
 
-  createPromises(amount, delay, step);
+  processPromises(amount, delay, step);
+
+  form.reset();
 });
 
-function createPromises(amount, initialDelay, step) {
+function processPromises(amount, initialDelay, step) {
   for (let i = 0; i < amount; i += 1) {
-    createPromise(i, initialDelay + i * step)
+    createPromise(i + 1, initialDelay + i * step)
       .then(({ position, delay }) => {
         iziToast.success({
           title: `Fulfilled Promise`,
